@@ -1,0 +1,59 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+android {
+    compileSdkVersion buildConfig.compileSdk
+    buildToolsVersion "30.0.3"
+    defaultConfig {
+        minSdkVersion buildConfig.minSdk
+        targetSdkVersion buildConfig.targetSdk
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
+    }
+
+    buildTypes {
+        debug {
+            debuggable true
+        }
+    }
+
+    dependencies {
+        implementation deps.kotlin.stdlib.jdk8
+        implementation deps.androidx.core
+        implementation deps.kotlin.coroutines.jdk8
+        implementation deps.dagger.android
+        implementation deps.dagger.androidSupport
+        implementation deps.trustkit
+        implementation deps.certificateTransparency
+        implementation deps.retrofit.rx
+        implementation deps.okhttp.client
+        implementation deps.okhttp.logging
+        implementation project(':domain')
+        api deps.retrofit.client
+        implementation deps.retrofit.gson
+        api deps.google.gson
+        implementation "androidx.room:room-runtime:2.4.0-alpha03"
+        annotationProcessor "androidx.room:room-compiler:2.4.0-alpha03"
+        kapt("androidx.room:room-compiler:2.4.0-alpha03")
+        implementation "androidx.room:room-ktx:2.4.0-alpha03"
+
+        testImplementation deps.junit
+
+        kapt deps.dagger.compiler
+        kapt deps.dagger.androidProcessor
+    }
+
+
+    buildscript {
+        repositories {
+            mavenCentral()
+            maven { url 'https://dl.bintray.com/kotlin/kotlin-eap' }
+        }
+        dependencies {
+            classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:${versions.kotlin}"
+        }
+    }
+}

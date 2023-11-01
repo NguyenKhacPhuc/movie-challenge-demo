@@ -1,0 +1,35 @@
+package com.example.android.viewmodel
+
+import androidx.lifecycle.*
+
+class ViewStateStore<T>(
+    initialState: T
+) {
+    private val stateLiveData = MutableLiveData(initialState)
+
+    val state: T
+        get() = stateLiveData.value!!
+
+    fun <S> observe(
+        owner: LifecycleOwner,
+        selector: (T) -> S,
+        observer: Observer<S>
+    ) {
+        stateLiveData.map(selector)
+            .observe(owner, observer)
+    }
+
+    fun <S> observeDistinctValue(
+        owner: LifecycleOwner,
+        selector: (T) -> S,
+        observer: Observer<S>
+    ) {
+        stateLiveData.map(selector)
+            .distinctUntilChanged()
+            .observe(owner, observer)
+    }
+
+    fun dispatchState(newState: T) {
+        stateLiveData.value = newState
+    }
+}
