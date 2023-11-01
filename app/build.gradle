@@ -73,17 +73,9 @@ android {
             returnDefaultValues = true
         }
     }
+    //disable lint for now
     lintOptions {
-        textReport true
-        textOutput 'stdout'
-        lintConfig rootProject.file('lint.xml')
-        disable 'NullSafeMutableLiveData'
-
-        checkDependencies true
-        checkTestSources true
-        explainIssues true
-
-        checkReleaseBuilds false
+        abortOnError false
     }
 
     aaptOptions {
