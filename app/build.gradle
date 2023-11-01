@@ -6,7 +6,6 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
 }
 
-
 android {
     compileSdkVersion buildConfig.compileSdk
     buildToolsVersion "30.0.3"
@@ -82,9 +81,13 @@ android {
 
         checkDependencies true
         checkTestSources true
-        explainIssues false
+        explainIssues true
 
         checkReleaseBuilds false
+    }
+
+    aaptOptions {
+        cruncherEnabled = false
     }
 
 }
